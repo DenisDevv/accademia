@@ -22,7 +22,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 passport.use(new DiscordStrategy({
     clientID: '1378340353932918794',
     clientSecret: '6IhM_J-mQd9SCZyknFLczEV_O6bAqKgo',
-    callbackURL: 'http://localhost:3000/auth/discord/callback',
+    callbackURL: 'http://208.87.101.105:3000/auth/discord/callback',
     scope: ['identify']
 }, (accessToken, refreshToken, profile, done) => {
     if (allowedIDs.includes(profile.id)) return done(null, profile);
