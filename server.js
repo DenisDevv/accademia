@@ -83,7 +83,7 @@ app.post('/admin/delete', ensureAuth, (req, res) => {
         const { username } = req.body;
         db.delete(`scores.${username}`);
         io.emit('scores', db.get('scores') || {});
-        res.redirect('/admin');
+        res.redirect('/dashboard');
     } else {
         res.status(403).send('Accesso negato');
     }
