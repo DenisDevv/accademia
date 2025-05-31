@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Classifica Accademia</h1>
+    <table id="scoreTable">
+        <thead>
+        <tr>
+            <th>Nominativo</th>
+            <th>Strumenti di Volo</th>
+            <th>Decollo</th>
+            <th>Formazione</th>
+            <th>DogFight</th>
+            <th>Canyon Run</th>
+            <th>Solista</th>
+            <th>Atterraggio</th>
+            <th>Totale</th>
+            <th>Azioni</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <a href="/admin" class="button">Pannello Admin</a>
+</div>
+<script>
+    const socket = io();
+    socket.on('scores', (data) => {
+        const tbody = document.querySelector('#scoreTable tbody');
+        tbody.innerHTML = '';
+        const rows = [];
+        for (const user in data) {
+            const s = data[user];
+            const total = (s.instrumenti || 0) + (s.decollo || 0) + (s.formazione || 0) + (s.dogfight || 0) + (s.canyon || 0) + (s.solista || 0) + (s.atterraggio || 0);
+            const row = {
+                html: `
+            <tr>
+              <td>${user}</td>
+              <td>${s.instrumenti || ''}</td>
+              <td>${s.decollo || ''}</td>
+              <td>${s.formazione || ''}</td>
+              <td>${s.dogfight || ''}</td>
+              <td>${s.canyon || ''}</td>
+              <td>${s.solista || ''}</td>
+              <td>${s.atterraggio || ''}</td>
+              <td>${total}</td>
+              <td><form method="POST" action="/admin/delete" onsubmit="return confirm('Eliminare ${user}?');"><input type="hidden" name="username" value="${user}"><button class="button">Elimina</button></form></td>
+            </tr>`
+                ,
+                total
+            };
+            rows.push(row);
+        }
+        rows.sort((a, b) => b.total - a.total);
+        rows.forEach(r => tbody.innerHTML += r.html);
+    });
+</script>
+</body>
+</html>

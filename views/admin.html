@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Modifica punteggi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Pannello Admin</h1>
+  <form method="POST" action="/admin/update">
+    <input type="text" name="username" placeholder="Nome utente" required><br>
+    <input type="number" name="instrumenti" placeholder="Strumenti di Volo"><br>
+    <input type="number" name="decollo" placeholder="Decollo"><br>
+    <input type="number" name="formazione" placeholder="Formazione"><br>
+    <input type="number" name="dogfight" placeholder="DogFight"><br>
+    <input type="number" name="canyon" placeholder="Canyon Run"><br>
+    <input type="number" name="solista" placeholder="Solista"><br>
+    <input type="number" name="atterraggio" placeholder="Atterraggio"><br>
+    <br><button type="submit" class="button">Aggiorna Punteggio</button>
+  </form>
+  <a href="/dashboard" class="button">Dashboard</a>
+</div>
+</body>
+</html>
