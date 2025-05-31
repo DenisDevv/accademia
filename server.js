@@ -72,6 +72,7 @@ app.post('/admin/update', ensureAuth, (req, res) => {
         };
         db.set(`scores.${username}`, userScore);
         io.emit('scores', db.get('scores') || {});
+        log(req.user.username, `Ha aggiornato il punteggio di ${username}`);
         res.redirect('/admin');
     } else {
         res.status(403).send('Accesso negato');
@@ -83,6 +84,7 @@ app.post('/admin/delete', ensureAuth, (req, res) => {
         const { username } = req.body;
         db.delete(`scores.${username}`);
         io.emit('scores', db.get('scores') || {});
+        log(req.user.username, `Ha rimosso ${username}`);
         res.redirect('/dashboard');
     } else {
         res.status(403).send('Accesso negato');
