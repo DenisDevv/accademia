@@ -96,5 +96,7 @@ function ensureAuth(req, res, next) {
 io.on('connection', async (socket) => {
     socket.emit('scores', await db.get('scores') || {});
 });
-
-server.listen(3000, () => console.log('Server started on http://localhost:3000'));
+function log(user, action) {
+    console.log(`User ${user} performed action: ${action}`);
+}
+server.listen(5000, () => console.log('Server started on http://localhost:3000'));
